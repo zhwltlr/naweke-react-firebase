@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import COLOR_LIST from './colorData';
 import SIZE_LIST from './sizeData';
+import SIZESECONLIST from './sizeSeconData';
 import PRICE_LIST from './priceData';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Filter.scss';
@@ -14,6 +15,11 @@ const Filter = ({ setFilterData }) => {
     color: '',
     price: 0,
   });
+  const initailFilter = () => {
+    const currentQuery = searchParams.toString();
+    const removePoint = currentQuery.split('&')[0];
+    navigate(`/products?${removePoint}`);
+  };
 
   const handleSelect = e => {
     const { name, value, id } = e.target;
@@ -56,7 +62,7 @@ const Filter = ({ setFilterData }) => {
               src="images/goback.png"
               alt="goback"
               onClick={() => {
-                navigate('?mainCategory=shoes&subCategory=running');
+                initailFilter();
               }}
             />
           </span>
@@ -124,23 +130,22 @@ const Filter = ({ setFilterData }) => {
         <div className="productSize filterLayout">
           <h3>사이즈</h3>
           <div className="sizeBtnWrap">
-            {sizeTitle &&
-              SIZE_LIST[sizeTitle].map((size, i) => {
-                return (
-                  <div key={i}>
-                    <input
-                      type="checkbox"
-                      name="size"
-                      id={`size${i}`}
-                      value={size}
-                      onChange={handleSelect}
-                    />
-                    <label htmlFor={`size${i}`} className="label">
-                      <span>{size}</span>
-                    </label>
-                  </div>
-                );
-              })}
+            {SIZESECONLIST.map((size, i) => {
+              return (
+                <div key={i}>
+                  <input
+                    type="checkbox"
+                    name="size"
+                    id={`size${i}`}
+                    value={size}
+                    onChange={handleSelect}
+                  />
+                  <label htmlFor={`size${i}`} className="label">
+                    <span>{size}</span>
+                  </label>
+                </div>
+              );
+            })}
           </div>
         </div>
         {/* color */}

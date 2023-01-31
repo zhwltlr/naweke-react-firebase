@@ -13,8 +13,6 @@ function Maintheme() {
 
   const imgName = searchParams.get('subCategory');
 
-  console.log(imgName);
-
   useEffect(() => {
     fetch(`http://10.58.52.162:3000/products?${searchParams.toString()}`)
       .then(response => response.json())

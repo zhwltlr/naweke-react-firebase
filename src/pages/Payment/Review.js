@@ -2,15 +2,12 @@ import React from 'react';
 import ReviewModal from './ReviewModal';
 
 function Review({
-  newReview,
-  pushReview,
   setReviewModal,
-  review,
-  reviewArr,
-  paymentData,
+  controlReview,
   editArr,
   setEditArr,
-  controlReview,
+  reviewId,
+  currentProduct,
 }) {
   const CREATE_REVIEW = {
     title: '리뷰 작성하기',
@@ -24,14 +21,11 @@ function Review({
     <div className="Review">
       <ReviewModal
         reviewData={controlReview ? UPDATE_REVIEW : CREATE_REVIEW}
-        newReview={newReview}
-        pushReview={pushReview}
         setReviewModal={setReviewModal}
-        review={review}
-        reviewArr={reviewArr}
-        paymentData={paymentData}
         editArr={editArr}
         setEditArr={setEditArr}
+        reviewId={reviewId}
+        currentProduct={currentProduct}
       />
     </div>
   );

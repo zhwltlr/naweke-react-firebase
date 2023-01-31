@@ -1,21 +1,28 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { APIS } from '../../config';
+import { firestore } from './firebase';
+import {
+  collection,
+  addDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 import './ReviewModal.scss';
 
 const ReviewModal = ({
   reviewData: { title, button },
   setReviewModal,
-  reviewArr,
-  paymentData,
   editArr,
   setEditArr,
+  reviewId,
+  currentProduct,
 }) => {
   const token = localStorage.getItem('token');
   const [review, setReview] = useState({});
-  const navigate = useNavigate();
 
+  // 리뷰 등록, 수정 input 핸들링
   const newReview = e => {
     const { name, value } = e.target;
     setReview(prev => ({ ...prev, [name]: value }));
@@ -25,53 +32,36 @@ const ReviewModal = ({
     setEditArr(prev => ({ ...prev, [name]: value }));
   };
 
-  // 리뷰작성
-  const newReviewFetch = () => {
-    fetch(`${APIS.review}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({
-        productId: paymentData[0].orderProduct[0].productOptionId,
+  // firebase
+  // 리뷰 생성
+  const createReview = currentProduct => {
+    try {
+      addDoc(collection(firestore, 'review'), {
         title: review.title,
-        content: review.text,
         score: review.score,
-        imageUrl: null,
-      }),
-    })
-      .then(response => {
-        if (response.ok === true) {
-          return response.json();
-        }
-        throw new Error('에러 발생!');
-      })
-      .catch(error => alert('연결에 실패했습니다.'))
-      .then(data => {
-        alert('작성이 완료되었습니다.');
+        content: review.content,
+        productName: currentProduct,
       });
+    } catch (err) {
+      alert(err);
+    }
   };
-  // 리뷰수정
-  const modifyReviewFetch = id => {
-    fetch(`${APIS.review}${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({
-        reviewId: reviewArr[0].id,
-        title: editArr.title,
-        content: editArr.content,
-        imageUrl: null,
-        score: editArr.score,
-      }),
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => navigate('/payment'));
-    setReviewModal(false);
+
+  // 리뷰 삭제
+  const deleteReview = async () => {
+    alert('정말 삭제하시겠습니까?');
+    await deleteDoc(doc(firestore, 'review', reviewId));
+  };
+
+  // 리뷰 수정 업데이트
+  const updateReview = async () => {
+    const updateRef = doc(firestore, 'review', reviewId);
+    await updateDoc(updateRef, {
+      content: editArr.content,
+      productName: editArr.productName,
+      score: editArr.score,
+      title: editArr.title,
+    });
   };
 
   return (
@@ -94,7 +84,7 @@ const ReviewModal = ({
               name="title"
               placeholder="제목"
               onChange={editReview}
-              value={editArr.title}
+              value={editArr.title || ''}
             />
           )}
 
@@ -128,7 +118,7 @@ const ReviewModal = ({
                     className="reviewSelect"
                     name="score"
                     onChange={editReview}
-                    value={editArr.score}
+                    value={editArr.score || ''}
                   >
                     <option>1</option>
                     <option>2</option>
@@ -141,7 +131,7 @@ const ReviewModal = ({
                     className="reviewInput"
                     placeholder="리뷰를 작성하세요"
                     name="content"
-                    value={editArr.content}
+                    value={editArr.content || ''}
                     onChange={editReview}
                   />
                 </>
@@ -150,25 +140,57 @@ const ReviewModal = ({
           </div>
 
           {button === '작성완료' ? (
-            <button
-              className="reviewBtn"
-              onClick={() => {
-                newReviewFetch();
-                setReviewModal(false);
-              }}
-            >
-              {button}
-            </button>
+            <div className="reviewBtnFlex">
+              <button
+                className="reviewButton backWhite"
+                onClick={() => {
+                  setReviewModal(false);
+                }}
+              >
+                취소하기
+              </button>
+              <button
+                className="reviewButton"
+                onClick={() => {
+                  createReview(currentProduct);
+                  setReviewModal(false);
+                  alert('리뷰가 등록 되었습니다!');
+                }}
+              >
+                {button}
+              </button>
+            </div>
           ) : (
-            <button
-              className="reviewBtn"
-              onClick={i => {
-                modifyReviewFetch();
-                setReviewModal(false);
-              }}
-            >
-              {button}
-            </button>
+            <div className="reviewBtnFlex">
+              <button
+                className="reviewButton backWhite"
+                onClick={() => {
+                  setReviewModal(false);
+                }}
+              >
+                취소하기
+              </button>
+              <button
+                className="reviewButton backWhite"
+                onClick={() => {
+                  deleteReview();
+                  setReviewModal(false);
+                  alert('리뷰가 삭제되었습니다');
+                }}
+              >
+                삭제하기
+              </button>
+              <button
+                className="reviewButton"
+                onClick={() => {
+                  updateReview();
+                  setReviewModal(false);
+                  alert('리뷰가 수정 되었습니다!');
+                }}
+              >
+                {button}
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import Review from './Review';
-import './ReviewModal.scss';
+import { firestore } from './firebase';
+import {
+  getDocs,
+  collection,
+  query,
+  where,
+  onSnapshot,
+} from 'firebase/firestore';
 import './PayReview.scss';
 
 function PayReview({ setControlReview, controlReview }) {
   const token = localStorage.getItem('token');
   const [reviewModal, setReviewModal] = useState(false);
-  const [reviewArr, setReviewArr] = useState([]);
   const [editArr, setEditArr] = useState([]);
 
-  // 리뷰 데이터
-  const reviewListFetch = () => {
-    fetch('http://10.58.52.162:3000/reviews', {
-      // fetch('/data/review.json', {
-      method: 'GET',
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then(response => response.json())
-      .then(data => setReviewArr(data.reviewData));
-  };
-
+  // firebase 리뷰 첫 렌더링
+  const [reviewId, setReviewId] = useState('');
+  const [reviewList, setReviewList] = useState([]);
+  const reviewRef = collection(firestore, 'review');
   useEffect(() => {
-    reviewListFetch();
-  }, [reviewModal]);
+    const reviewFirebase = async () => {
+      onSnapshot(reviewRef, snap => {
+        let newArr = [];
+        snap.forEach(doc => {
+          newArr.push(doc.data());
+        });
+        setReviewList(newArr);
+      });
+    };
+    // 활성화
+    reviewFirebase();
+  }, []);
+
+  const updateGet = async productName => {
+    const q = query(
+      collection(firestore, 'review'),
+      where('productName', '==', productName)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => {
+      setReviewId(doc.id);
+      setEditArr(doc.data());
+    });
+  };
 
   return (
     <div className="PayReview">
@@ -41,59 +60,43 @@ function PayReview({ setControlReview, controlReview }) {
                 <th className="postChange">수정</th>
               </tr>
             </thead>
-            {reviewArr.data.map((el, i) => {
-              return (
-                <tbody key={i}>
-                  <tr className="postReview">
-                    <td className="postId">{el.productName}</td>
-                    <td className="postTitle">{el.title}</td>
-                    <td className="postScore">{el.score}</td>
-                    <td className="postText">{el.content}</td>
-                    <td>
-                      <img
-                        src="images/editing.png"
-                        alt="edit"
-                        className="changeBtn"
-                        onClick={() => {
-                          setControlReview(true);
-                          fetch(`http://10.58.52.162:3000/reviews/${el.id}`, {
-                            method: 'GET',
-                            headers: {
-                              Authorization: token,
-                            },
-                          })
-                            .then(response => response.json())
-                            .then(data => setEditArr(data.reviewData));
-                          setReviewModal(!reviewModal);
-                        }}
-                      />
-                      {reviewModal === true ? (
-                        <Review
-                          setReviewModal={setReviewModal}
-                          reviewArr={reviewArr}
-                          editArr={editArr}
-                          setEditArr={setEditArr}
-                          controlReview={controlReview}
+            {reviewList.length ? (
+              reviewList.map((el, i) => {
+                return (
+                  <tbody key={i}>
+                    <tr className="postReview">
+                      <td className="postId">{el.productName}</td>
+                      <td className="postTitle">{el.title}</td>
+                      <td className="postScore">{el.score}</td>
+                      <td className="postText">{el.content}</td>
+                      <td>
+                        <img
+                          src="images/editing.png"
+                          alt="edit"
+                          className="changeBtn"
+                          onClick={() => {
+                            setControlReview(true);
+                            updateGet(el.productName);
+                            setReviewModal(!reviewModal);
+                          }}
                         />
-                      ) : null}
-                      <img
-                        src="images/delete.png"
-                        alt="delete"
-                        className="changeBtn"
-                        onClick={() => {
-                          fetch(`http://10.58.52.162:3000/reviews/${el.id}`, {
-                            method: 'DELETE',
-                            headers: {
-                              Authorization: token,
-                            },
-                          });
-                        }}
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
+                        {reviewModal === true ? (
+                          <Review
+                            setReviewModal={setReviewModal}
+                            editArr={editArr}
+                            setEditArr={setEditArr}
+                            controlReview={controlReview}
+                            reviewId={reviewId}
+                          />
+                        ) : null}
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })
+            ) : (
+              <div className="noList">작성된 리뷰가 없습니다.</div>
+            )}
           </table>
         </div>
       </div>
