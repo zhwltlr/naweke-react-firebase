@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NAV_LIST } from './Navlist';
 import FindProduct from './FindProduct';
 import './Nav.scss';
@@ -68,7 +68,7 @@ function Nav() {
 
       <div className="navBox">
         <div className="navLogo" onMouseEnter={() => setIsSubMenuOpen(false)}>
-          <Link to="/">NAWEKE</Link>
+          <Link to="/main">NAWEKE</Link>
         </div>
         <ul className="navMain" onMouseEnter={() => setIsSubMenuOpen(true)}>
           <Link to="/products?subCategory=running">

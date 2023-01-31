@@ -108,7 +108,14 @@ function User({ userData: { title, text, url, button } }) {
   return (
     <div className="signup">
       <div className="signupInner">
-        <div className="logo">NAWEKE</div>
+        <div
+          className="logo"
+          onClick={() => {
+            navigate('/main');
+          }}
+        >
+          NAWEKE
+        </div>
         <h2>{title}</h2>
         <form className="signupInput">
           {/* 회원가입 이름, 생년월일 */}
@@ -179,7 +186,7 @@ function User({ userData: { title, text, url, button } }) {
         >
           {button}
         </button>
-        <Link to={url} className="link">
+        <Link to={url} className="goTolink">
           {text}
         </Link>
       </div>

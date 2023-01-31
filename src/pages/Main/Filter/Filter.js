@@ -19,6 +19,7 @@ const Filter = ({ setFilterData }) => {
     const currentQuery = searchParams.toString();
     const removePoint = currentQuery.split('&')[0];
     navigate(`/products?${removePoint}`);
+    window.location.reload();
   };
 
   const handleSelect = e => {

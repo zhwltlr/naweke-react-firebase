@@ -2,7 +2,8 @@ import React from 'react';
 import User from './User';
 
 function UserAccount() {
-  const isSelectLogin = window.location.pathname === '/login';
+  const isSelectLogin =
+    window.location.pathname === `${process.env.PUBLIC_URL}/login`;
 
   const LOGIN_DATA = {
     title: '로그인을 위해 아이디를 입력하세요.',
