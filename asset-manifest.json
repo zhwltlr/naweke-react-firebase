@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/naweke-react-firebase/static/css/main.b1451672.css",
+    "main.js": "/naweke-react-firebase/static/js/main.b0449a41.js",
+    "index.html": "/naweke-react-firebase/index.html",
+    "main.b1451672.css.map": "/naweke-react-firebase/static/css/main.b1451672.css.map",
+    "main.b0449a41.js.map": "/naweke-react-firebase/static/js/main.b0449a41.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b1451672.css",
+    "static/js/main.b0449a41.js"
+  ]
+}
