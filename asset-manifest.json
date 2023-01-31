@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/naweke-react-firebase/static/css/main.b1451672.css",
-    "main.js": "/naweke-react-firebase/static/js/main.8a65e874.js",
+    "main.js": "/naweke-react-firebase/static/js/main.76765d54.js",
     "index.html": "/naweke-react-firebase/index.html",
     "main.b1451672.css.map": "/naweke-react-firebase/static/css/main.b1451672.css.map",
-    "main.8a65e874.js.map": "/naweke-react-firebase/static/js/main.8a65e874.js.map"
+    "main.76765d54.js.map": "/naweke-react-firebase/static/js/main.76765d54.js.map"
   },
   "entrypoints": [
     "static/css/main.b1451672.css",
-    "static/js/main.8a65e874.js"
+    "static/js/main.76765d54.js"
   ]
 }
