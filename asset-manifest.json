@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/naweke-react-firebase/static/css/main.b1451672.css",
-    "main.js": "/naweke-react-firebase/static/js/main.abc57d8b.js",
-    "index.html": "/naweke-react-firebase/index.html",
-    "main.b1451672.css.map": "/naweke-react-firebase/static/css/main.b1451672.css.map",
-    "main.abc57d8b.js.map": "/naweke-react-firebase/static/js/main.abc57d8b.js.map"
+    "main.css": "/naweke-react-firebase/Payment.js/static/css/main.b1451672.css",
+    "main.js": "/naweke-react-firebase/Payment.js/static/js/main.bc78112c.js",
+    "index.html": "/naweke-react-firebase/Payment.js/index.html",
+    "main.b1451672.css.map": "/naweke-react-firebase/Payment.js/static/css/main.b1451672.css.map",
+    "main.bc78112c.js.map": "/naweke-react-firebase/Payment.js/static/js/main.bc78112c.js.map"
   },
   "entrypoints": [
     "static/css/main.b1451672.css",
-    "static/js/main.abc57d8b.js"
+    "static/js/main.bc78112c.js"
   ]
 }
