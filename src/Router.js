@@ -12,7 +12,7 @@ import Maintheme from './pages/Maintheme/Maintheme';
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="https://zhwltlr.github.io/naweke-react-firebase/">
       <Nav />
       <Routes>
         <Route path="/cart" element={<Cart />} />
