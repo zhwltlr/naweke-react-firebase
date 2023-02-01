@@ -1,6 +1,6 @@
 # <p align="center">쇼핑몰 웹 서비스를 모델링 한 프로젝트
 
-<p align="center"> 📆 2022.11.14~ 2023.11.25 2주간
+<p align="center"> 📆 2022.11.14~ 2022.11.25 2주간
 
 ## 팀 프로젝트 레포 및 README
 
@@ -130,8 +130,8 @@
   ```
 - 정규 표현식을 통한 아이디, 비밀번호 유효성 검사
 <p align="center">
-<img src="public/images/loginSignup.gif" width="300px"/>
-<img src="https://user-images.githubusercontent.com/100506719/215703351-7ffdb38e-5a9c-402a-b486-d7e3240b2578.gif" width="300px"/>
+<img src="public/images/loginSignup.gif" width="400px"/>
+<img src="https://user-images.githubusercontent.com/100506719/215703351-7ffdb38e-5a9c-402a-b486-d7e3240b2578.gif" width="400px"/>
 </p>
 
 <br />
