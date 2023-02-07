@@ -96,6 +96,18 @@
 
 #### <b>2. product list filtering 기능 구현</b>
 
+```
+📦Main
+ ┣ 📂Filter
+ ┃ ┣ 📜colorData.js
+ ┃ ┣ 📜Filter.js
+ ┃ ┣ 📜Filter.scss
+ ┃ ┣ 📜priceData.js
+ ┃ ┣ 📜sizeData.js
+ ┃ ┗ 📜sortData.js
+
+```
+
 - querystring을 활용하여 조건별 검색이 가능한 상품 리스트 페이지 구현하여 사용자가 보다 편리하게 원하는 검색 결과를 찾을 수 있도록 표현
 - 사용자가 선택하는 size, color, price, gender value 값을 받아서 저장
   ```
@@ -122,6 +134,17 @@
 <br/>
 
 #### <b>3. 하나의 컴포넌트로 로그인 및 회원가입 관리</b>
+
+```
+📦UserAccount
+ ┣ 📂Login
+ ┃ ┗ 📜Login.js
+ ┣ 📂SignUp
+ ┃ ┗ 📜SignUp.js
+ ┣ 📜User.js
+ ┣ 📜UserAccount.js
+ ┗ 📜userAccount.scss
+```
 
 - User 컴포넌트 하나로 로그인과 회원가입을 관리하기 위해 각각의 본문 내용을 상수데이터로 만들어서 isSelectLogin state로 관리
   ```
@@ -160,7 +183,8 @@
 
 ## 회고 및 느낀점
 
-- <a href="https://blog.naver.com/zhwltlr/222939702281" :target="_blank">📎기업협업 회고</a>
+- <a href="https://blog.naver.com/zhwltlr/222985273879">📎 파이어베이스 적용한 소스코드 설명(blog)</a>
+- <a href="https://blog.naver.com/zhwltlr/222939702281" :target="_blank">📎 1차 프로젝트 회고(blog)</a>
 
 - 주문내역 페이지는 리팩토링을 통해 review 컴포넌트 하나로 등록, 수정, 삭제가 가능하도록 하였습니다.
 - 기존 코드에서 등록과 수정,삭제 modal을 분리하였으나 로그인, 회원가입처럼 하나의 컴포넌트로 관리하는 것이 더 효율적일 것이라 판단하였습니다.

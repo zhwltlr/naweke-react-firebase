@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { APIS } from '../../config';
-import './SignUp.scss';
+import './userAccount.scss';
 
 function User({ userData: { title, text, url, button } }) {
   const [inputValue, setInputValue] = useState({
